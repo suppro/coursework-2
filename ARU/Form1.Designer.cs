@@ -62,6 +62,13 @@
             this.label16 = new System.Windows.Forms.Label();
             this.btnDeceased = new System.Windows.Forms.Button();
             this.dgvDeceased = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deceasedstatusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deceasedData1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.deceasedData1 = new ARU.DeceasedData();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -79,15 +86,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.btnEmployee = new System.Windows.Forms.Button();
-            this.dgvEmployeeData = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvEmployee = new System.Windows.Forms.DataGridView();
             this.employeeData1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.employeeData1 = new ARU.EmployeeData();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -155,13 +154,14 @@
             this.positionTableAdapter1 = new ARU.PositionsDataTableAdapters.PositionTableAdapter();
             this.dataTable1TableAdapter5 = new ARU.GraveDataTableAdapters.DataTable1TableAdapter();
             this.orderTableAdapter2 = new ARU.OrderDataTableAdapters.OrderTableAdapter();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deceasedstatusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
@@ -174,7 +174,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.positionsData1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.positionsData1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeData1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeData1)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -500,6 +500,49 @@
             this.dgvDeceased.Size = new System.Drawing.Size(588, 355);
             this.dgvDeceased.TabIndex = 0;
             // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "id";
+            this.dataGridViewTextBoxColumn5.HeaderText = "ID Покойника";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Имя";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "surname";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Фамилия";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "patronymic";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Отчество";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "birth_date";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Дата рождения";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "death_date";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Дата смерти";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // deceasedstatusDataGridViewTextBoxColumn
+            // 
+            this.deceasedstatusDataGridViewTextBoxColumn.DataPropertyName = "deceased_status";
+            this.deceasedstatusDataGridViewTextBoxColumn.HeaderText = "Статус";
+            this.deceasedstatusDataGridViewTextBoxColumn.Name = "deceasedstatusDataGridViewTextBoxColumn";
+            // 
             // deceasedData1BindingSource
             // 
             this.deceasedData1BindingSource.DataMember = "Deceased";
@@ -524,7 +567,7 @@
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.btnEmployee);
-            this.tabPage2.Controls.Add(this.dgvEmployeeData);
+            this.tabPage2.Controls.Add(this.dgvEmployee);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -647,12 +690,12 @@
             this.btnEmployee.UseVisualStyleBackColor = true;
             this.btnEmployee.Click += new System.EventHandler(this.AddPersonal);
             // 
-            // dgvEmployeeData
+            // dgvEmployee
             // 
-            this.dgvEmployeeData.AllowUserToAddRows = false;
-            this.dgvEmployeeData.AutoGenerateColumns = false;
-            this.dgvEmployeeData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployeeData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvEmployee.AllowUserToAddRows = false;
+            this.dgvEmployee.AutoGenerateColumns = false;
+            this.dgvEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn13,
@@ -661,61 +704,12 @@
             this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18});
-            this.dgvEmployeeData.DataSource = this.employeeData1BindingSource;
-            this.dgvEmployeeData.Location = new System.Drawing.Point(233, 6);
-            this.dgvEmployeeData.Name = "dgvEmployeeData";
-            this.dgvEmployeeData.RowHeadersVisible = false;
-            this.dgvEmployeeData.Size = new System.Drawing.Size(564, 355);
-            this.dgvEmployeeData.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "id";
-            this.dataGridViewTextBoxColumn12.HeaderText = "ID Сотрудника";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "position_name";
-            this.dataGridViewTextBoxColumn11.HeaderText = "position_name";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "surname";
-            this.dataGridViewTextBoxColumn13.HeaderText = "Фамилия";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "name";
-            this.dataGridViewTextBoxColumn14.HeaderText = "Имя";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "patronymic";
-            this.dataGridViewTextBoxColumn15.HeaderText = "Отчество";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "age";
-            this.dataGridViewTextBoxColumn16.HeaderText = "Возраст";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.DataPropertyName = "login";
-            this.dataGridViewTextBoxColumn17.HeaderText = "Логин";
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            // 
-            // dataGridViewTextBoxColumn18
-            // 
-            this.dataGridViewTextBoxColumn18.DataPropertyName = "password";
-            this.dataGridViewTextBoxColumn18.HeaderText = "Пароль";
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.dgvEmployee.DataSource = this.employeeData1BindingSource;
+            this.dgvEmployee.Location = new System.Drawing.Point(233, 6);
+            this.dgvEmployee.Name = "dgvEmployee";
+            this.dgvEmployee.RowHeadersVisible = false;
+            this.dgvEmployee.Size = new System.Drawing.Size(564, 355);
+            this.dgvEmployee.TabIndex = 0;
             // 
             // employeeData1BindingSource
             // 
@@ -1251,48 +1245,54 @@
             // 
             this.orderTableAdapter2.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn5
+            // dataGridViewTextBoxColumn12
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "id";
-            this.dataGridViewTextBoxColumn5.HeaderText = "ID Покойника";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "id";
+            this.dataGridViewTextBoxColumn12.HeaderText = "ID Сотрудника";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn6
+            // dataGridViewTextBoxColumn11
             // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "name";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Имя";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "position_name";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Должность";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             // 
-            // dataGridViewTextBoxColumn7
+            // dataGridViewTextBoxColumn13
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "surname";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Фамилия";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "surname";
+            this.dataGridViewTextBoxColumn13.HeaderText = "Фамилия";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             // 
-            // dataGridViewTextBoxColumn8
+            // dataGridViewTextBoxColumn14
             // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "patronymic";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Отчество";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn14.HeaderText = "Имя";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             // 
-            // dataGridViewTextBoxColumn9
+            // dataGridViewTextBoxColumn15
             // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "birth_date";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Дата рождения";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn15.DataPropertyName = "patronymic";
+            this.dataGridViewTextBoxColumn15.HeaderText = "Отчество";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             // 
-            // dataGridViewTextBoxColumn10
+            // dataGridViewTextBoxColumn16
             // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "death_date";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Дата смерти";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn16.DataPropertyName = "age";
+            this.dataGridViewTextBoxColumn16.HeaderText = "Возраст";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
             // 
-            // deceasedstatusDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn17
             // 
-            this.deceasedstatusDataGridViewTextBoxColumn.DataPropertyName = "deceased_status";
-            this.deceasedstatusDataGridViewTextBoxColumn.HeaderText = "Статус";
-            this.deceasedstatusDataGridViewTextBoxColumn.Name = "deceasedstatusDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn17.DataPropertyName = "login";
+            this.dataGridViewTextBoxColumn17.HeaderText = "Логин";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.DataPropertyName = "password";
+            this.dataGridViewTextBoxColumn18.HeaderText = "Пароль";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             // 
             // Form1
             // 
@@ -1324,7 +1324,7 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.positionsData1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.positionsData1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeData1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeData1)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -1365,7 +1365,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnClient;
         private System.Windows.Forms.DataGridView dgvClient;
-        private System.Windows.Forms.DataGridView dgvEmployeeData;
+        private System.Windows.Forms.DataGridView dgvEmployee;
         private System.Windows.Forms.DataGridView dgvOrder;
         private System.Windows.Forms.DataGridView dgvDeceased;
         private System.Windows.Forms.Label label2;
@@ -1502,14 +1502,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
@@ -1532,6 +1524,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn deceasedstatusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
     }
 }
 

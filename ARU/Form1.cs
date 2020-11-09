@@ -261,71 +261,39 @@ namespace ARU
                 btnDeleteClient.Enabled = false;
             }
         }
-        /*
         private void selectPersonal(object sender, EventArgs e)
         {
-            if (dgvClient.CurrentRow.Index != -1)
+            if (dgvEmployee.CurrentRow.Index != -1)
             {
-                client.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
+                employee.id = Convert.ToInt32(dgvEmployee.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
                 using (ARUDBEntities db = new ARUDBEntities())
                 {
-                    client = db.Client.Where(x => x.id == client.id).FirstOrDefault();
-                    txtClientName.Text = client.name;
-                    txtClientSurname.Text = client.surname;
-                    txtClientPatronymic.Text = client.patronymic;
+                    employee = db.Employee.Where(x => x.id == employee.id).FirstOrDefault();
+                    txtEmployeeName.Text = employee.name;
+                    txtEmployeePatronymic.Text = employee.surname;
+                    txtEmployeeSurname.Text = employee.patronymic;
+                    txtEmployeeAge.Text = employee.age.ToString();
+                    cmbEmployeePosition.SelectedIndex = employee.position_id;
                 }
-                btnClient.Text = "Обновить запись";
-                btnDeleteClient.Enabled = false;
+                btnEmployee.Text = "Обновить запись";
             }
         }
         private void selectDeceased(object sender, EventArgs e)
         {
-            if (dgvClient.CurrentRow.Index != -1)
+            if (dgvDeceased.CurrentRow.Index != -1)
             {
-                client.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
+                deceased.id = Convert.ToInt32(dgvDeceased.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
                 using (ARUDBEntities db = new ARUDBEntities())
                 {
-                    client = db.Client.Where(x => x.id == client.id).FirstOrDefault();
-                    txtClientName.Text = client.name;
-                    txtClientSurname.Text = client.surname;
-                    txtClientPatronymic.Text = client.patronymic;
+                    deceased = db.Deceased.Where(x => x.id == client.id).FirstOrDefault();
+                    txtDeceasedName.Text = deceased.name;
+                    txtDeceasedPatronymic.Text = deceased.patronymic;
+                    txtDeceasedSurname.Text = deceased.surname;
+                    dtimeBirth.Value = deceased.birth_date;
+                    dtimeDead.Value = deceased.death_date;
                 }
-                btnClient.Text = "Обновить запись";
-                btnDeleteClient.Enabled = false;
+                btnDeceased.Text = "Обновить запись";
             }
         }
-        private void selectOrder(object sender, EventArgs e)
-        {
-            if (dgvClient.CurrentRow.Index != -1)
-            {
-                client.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
-                using (ARUDBEntities db = new ARUDBEntities())
-                {
-                    client = db.Client.Where(x => x.id == client.id).FirstOrDefault();
-                    txtClientName.Text = client.name;
-                    txtClientSurname.Text = client.surname;
-                    txtClientPatronymic.Text = client.patronymic;
-                }
-                btnClient.Text = "Обновить запись";
-                btnDeleteClient.Enabled = false;
-            }
-        }
-        private void selectPartsOrder(object sender, EventArgs e)
-        {
-            if (dgvClient.CurrentRow.Index != -1)
-            {
-                client.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
-                using (ARUDBEntities db = new ARUDBEntities())
-                {
-                    client = db.Client.Where(x => x.id == client.id).FirstOrDefault();
-                    txtClientName.Text = client.name;
-                    txtClientSurname.Text = client.surname;
-                    txtClientPatronymic.Text = client.patronymic;
-                }
-                btnClient.Text = "Обновить запись";
-                btnDeleteClient.Enabled = false;
-            }
-        }
-        */
     }
 }
