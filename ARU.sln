@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARU", "ARU\ARU.csproj", "{9484B1F9-ABFD-42B4-9AA9-1D23CCFEEF3E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9484B1F9-ABFD-42B4-9AA9-1D23CCFEEF3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9484B1F9-ABFD-42B4-9AA9-1D23CCFEEF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9484B1F9-ABFD-42B4-9AA9-1D23CCFEEF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9484B1F9-ABFD-42B4-9AA9-1D23CCFEEF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9C46C8C-156E-4496-9893-1850199D7217}
+	EndGlobalSection
+EndGlobal

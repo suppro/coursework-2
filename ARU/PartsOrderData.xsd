@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PartsOrderData" targetNamespace="http://tempuri.org/PartsOrderData.xsd" xmlns:mstns="http://tempuri.org/PartsOrderData.xsd" xmlns="http://tempuri.org/PartsOrderData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ARUDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ARUDBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ARU.Properties.Settings.GlobalReference.Default.ARUDBConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ARUDBConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        [Order].order_num, Deceased.name + ' ' + Deceased.surname + ' ' + Deceased.patronymic AS fio, Order_Grave.burial_date, Grave.grave_number, Status.status_name
+FROM            Deceased INNER JOIN
+                         Order_Grave ON Deceased.id = Order_Grave.deceased_id INNER JOIN
+                         [Order] ON Order_Grave.order_id = [Order].id INNER JOIN
+                         Status ON Order_Grave.status_id = Status.id INNER JOIN
+                         Grave ON Order_Grave.grave_id = Grave.id
+ORDER BY [Order].order_num</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="order_num" DataSetColumn="order_num" />
+              <Mapping SourceColumn="fio" DataSetColumn="fio" />
+              <Mapping SourceColumn="burial_date" DataSetColumn="burial_date" />
+              <Mapping SourceColumn="grave_number" DataSetColumn="grave_number" />
+              <Mapping SourceColumn="status_name" DataSetColumn="status_name" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PartsOrderData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="PartsOrderData" msprop:Generator_UserDSName="PartsOrderData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="order_num" msprop:Generator_ColumnVarNameInTable="columnorder_num" msprop:Generator_ColumnPropNameInRow="order_num" msprop:Generator_ColumnPropNameInTable="order_numColumn" msprop:Generator_UserColumnName="order_num" type="xs:int" />
+              <xs:element name="fio" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnfio" msprop:Generator_ColumnPropNameInRow="fio" msprop:Generator_ColumnPropNameInTable="fioColumn" msprop:Generator_UserColumnName="fio" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="152" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="burial_date" msprop:Generator_ColumnVarNameInTable="columnburial_date" msprop:Generator_ColumnPropNameInRow="burial_date" msprop:Generator_ColumnPropNameInTable="burial_dateColumn" msprop:Generator_UserColumnName="burial_date" type="xs:dateTime" />
+              <xs:element name="grave_number" msprop:Generator_ColumnVarNameInTable="columngrave_number" msprop:Generator_ColumnPropNameInRow="grave_number" msprop:Generator_ColumnPropNameInTable="grave_numberColumn" msprop:Generator_UserColumnName="grave_number" type="xs:int" />
+              <xs:element name="status_name" msprop:Generator_ColumnVarNameInTable="columnstatus_name" msprop:Generator_ColumnPropNameInRow="status_name" msprop:Generator_ColumnPropNameInTable="status_nameColumn" msprop:Generator_UserColumnName="status_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

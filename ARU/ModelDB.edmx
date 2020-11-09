@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ARUDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Deceased">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deceased_status_id" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="varchar" MaxLength="50" />
+          <Property Name="birth_date" Type="date" Nullable="false" />
+          <Property Name="death_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeceasedStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deceased_status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="position_id" Type="int" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gravestatus_id" Type="int" Nullable="false" />
+          <Property Name="grave_number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GraveStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status_value" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="order_num" Type="int" Nullable="false" />
+          <Property Name="order_sum" Type="int" Nullable="false" />
+          <Property Name="order_date" Type="date" Nullable="false" />
+          <Property Name="parts_order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_Grave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deceased_id" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="grave_id" Type="int" Nullable="false" />
+          <Property Name="burial_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="position_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Deceased_DeceasedStatus">
+          <End Role="DeceasedStatus" Type="Self.DeceasedStatus" Multiplicity="0..1" />
+          <End Role="Deceased" Type="Self.Deceased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeceasedStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deceased">
+              <PropertyRef Name="deceased_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grave_GraveStatus">
+          <End Role="GraveStatus" Type="Self.GraveStatus" Multiplicity="1" />
+          <End Role="Grave" Type="Self.Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GraveStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Grave">
+              <PropertyRef Name="gravestatus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Deceased">
+          <End Role="Deceased" Type="Self.Deceased" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deceased">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="deceased_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Grave">
+          <End Role="Grave" Type="Self.Grave" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="grave_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ARUDBModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deceased" EntityType="Self.Deceased" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeceasedStatus" EntityType="Self.DeceasedStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grave" EntityType="Self.Grave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GraveStatus" EntityType="Self.GraveStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Grave" EntityType="Self.Order_Grave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Deceased_DeceasedStatus" Association="Self.FK_Deceased_DeceasedStatus">
+            <End Role="DeceasedStatus" EntitySet="DeceasedStatus" />
+            <End Role="Deceased" EntitySet="Deceased" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grave_GraveStatus" Association="Self.FK_Grave_GraveStatus">
+            <End Role="GraveStatus" EntitySet="GraveStatus" />
+            <End Role="Grave" EntitySet="Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Deceased" Association="Self.FK_Order_Grave_Deceased">
+            <End Role="Deceased" EntitySet="Deceased" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Grave" Association="Self.FK_Order_Grave_Grave">
+            <End Role="Grave" EntitySet="Grave" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Order" Association="Self.FK_Order_Grave_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Status" Association="Self.FK_Order_Grave_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ARUDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Deceased">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deceased_status_id" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="birth_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="death_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DeceasedStatus" Relationship="Self.FK_Deceased_DeceasedStatus" FromRole="Deceased" ToRole="DeceasedStatus" />
+          <NavigationProperty Name="Order_Grave" Relationship="Self.FK_Order_Grave_Deceased" FromRole="Deceased" ToRole="Order_Grave" />
+        </EntityType>
+        <EntityType Name="DeceasedStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deceased_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Deceased" Relationship="Self.FK_Deceased_DeceasedStatus" FromRole="DeceasedStatus" ToRole="Deceased" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="position_id" Type="Int32" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Grave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gravestatus_id" Type="Int32" Nullable="false" />
+          <Property Name="grave_number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GraveStatus" Relationship="Self.FK_Grave_GraveStatus" FromRole="Grave" ToRole="GraveStatus" />
+          <NavigationProperty Name="Order_Grave" Relationship="Self.FK_Order_Grave_Grave" FromRole="Grave" ToRole="Order_Grave" />
+        </EntityType>
+        <EntityType Name="GraveStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Grave" Relationship="Self.FK_Grave_GraveStatus" FromRole="GraveStatus" ToRole="Grave" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_id" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="order_num" Type="Int32" Nullable="false" />
+          <Property Name="order_sum" Type="Int32" Nullable="false" />
+          <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="parts_order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
+          <NavigationProperty Name="Order_Grave" Relationship="Self.FK_Order_Grave_Order" FromRole="Order" ToRole="Order_Grave" />
+        </EntityType>
+        <EntityType Name="Order_Grave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deceased_id" Type="Int32" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="grave_id" Type="Int32" Nullable="false" />
+          <Property Name="burial_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Deceased" Relationship="Self.FK_Order_Grave_Deceased" FromRole="Order_Grave" ToRole="Deceased" />
+          <NavigationProperty Name="Grave" Relationship="Self.FK_Order_Grave_Grave" FromRole="Order_Grave" ToRole="Grave" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Grave_Order" FromRole="Order_Grave" ToRole="Order" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Order_Grave_Status" FromRole="Order_Grave" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="position_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Order_Grave" Relationship="Self.FK_Order_Grave_Status" FromRole="Status" ToRole="Order_Grave" />
+        </EntityType>
+        <Association Name="FK_Order_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deceased_DeceasedStatus">
+          <End Role="DeceasedStatus" Type="Self.DeceasedStatus" Multiplicity="0..1" />
+          <End Role="Deceased" Type="Self.Deceased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeceasedStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deceased">
+              <PropertyRef Name="deceased_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Deceased">
+          <End Role="Deceased" Type="Self.Deceased" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deceased">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="deceased_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grave_GraveStatus">
+          <End Role="GraveStatus" Type="Self.GraveStatus" Multiplicity="1" />
+          <End Role="Grave" Type="Self.Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GraveStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Grave">
+              <PropertyRef Name="gravestatus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Grave">
+          <End Role="Grave" Type="Self.Grave" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="grave_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Grave_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Order_Grave" Type="Self.Order_Grave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Grave">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ARUDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Deceased" EntityType="Self.Deceased" />
+          <EntitySet Name="DeceasedStatus" EntityType="Self.DeceasedStatus" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Grave" EntityType="Self.Grave" />
+          <EntitySet Name="GraveStatus" EntityType="Self.GraveStatus" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Order_Grave" EntityType="Self.Order_Grave" />
+          <EntitySet Name="Position" EntityType="Self.Position" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deceased_DeceasedStatus" Association="Self.FK_Deceased_DeceasedStatus">
+            <End Role="DeceasedStatus" EntitySet="DeceasedStatus" />
+            <End Role="Deceased" EntitySet="Deceased" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Deceased" Association="Self.FK_Order_Grave_Deceased">
+            <End Role="Deceased" EntitySet="Deceased" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grave_GraveStatus" Association="Self.FK_Grave_GraveStatus">
+            <End Role="GraveStatus" EntitySet="GraveStatus" />
+            <End Role="Grave" EntitySet="Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Grave" Association="Self.FK_Order_Grave_Grave">
+            <End Role="Grave" EntitySet="Grave" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Order" Association="Self.FK_Order_Grave_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Grave_Status" Association="Self.FK_Order_Grave_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order_Grave" EntitySet="Order_Grave" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ARUDBModelContainer" CdmEntityContainer="ARUDBEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ARUDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deceased">
+            <EntityTypeMapping TypeName="ARUDBModel.Deceased">
+              <MappingFragment StoreEntitySet="Deceased">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="deceased_status_id" ColumnName="deceased_status_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="death_date" ColumnName="death_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeceasedStatus">
+            <EntityTypeMapping TypeName="ARUDBModel.DeceasedStatus">
+              <MappingFragment StoreEntitySet="DeceasedStatus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="deceased_status" ColumnName="deceased_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="ARUDBModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="age" ColumnName="age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grave">
+            <EntityTypeMapping TypeName="ARUDBModel.Grave">
+              <MappingFragment StoreEntitySet="Grave">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="gravestatus_id" ColumnName="gravestatus_id" />
+                <ScalarProperty Name="grave_number" ColumnName="grave_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GraveStatus">
+            <EntityTypeMapping TypeName="ARUDBModel.GraveStatus">
+              <MappingFragment StoreEntitySet="GraveStatus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status_value" ColumnName="status_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="ARUDBModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="order_num" ColumnName="order_num" />
+                <ScalarProperty Name="order_sum" ColumnName="order_sum" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="parts_order" ColumnName="parts_order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Grave">
+            <EntityTypeMapping TypeName="ARUDBModel.Order_Grave">
+              <MappingFragment StoreEntitySet="Order_Grave">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="deceased_id" ColumnName="deceased_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="grave_id" ColumnName="grave_id" />
+                <ScalarProperty Name="burial_date" ColumnName="burial_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Position">
+            <EntityTypeMapping TypeName="ARUDBModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="position_name" ColumnName="position_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="ARUDBModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
