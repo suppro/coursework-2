@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnDeleteClient = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,6 +50,8 @@
             this.clientsData1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clientsData1 = new ARU.ClientsData();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.dtimeDead = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
@@ -72,6 +75,7 @@
             this.deceasedData1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.deceasedData1 = new ARU.DeceasedData();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.txtEmployeeAge = new System.Windows.Forms.TextBox();
             this.cmbEmployeePosition = new System.Windows.Forms.ComboBox();
@@ -98,6 +102,7 @@
             this.employeeData1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.employeeData1 = new ARU.EmployeeData();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnCancelSelection = new System.Windows.Forms.Button();
             this.cbPartsOrder = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
             this.btnClarification = new System.Windows.Forms.Button();
@@ -162,11 +167,6 @@
             this.dataTable1TableAdapter5 = new ARU.GraveDataTableAdapters.DataTable1TableAdapter();
             this.orderTableAdapter2 = new ARU.OrderDataTableAdapters.OrderTableAdapter();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnCancelSelection = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
@@ -232,6 +232,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Клиенты";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(24, 215);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(184, 23);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Отменить выделение";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // btnDeleteClient
             // 
@@ -387,6 +396,24 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Покойники";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(9, 263);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(184, 23);
+            this.button4.TabIndex = 24;
+            this.button4.Text = "Удалить запись";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(9, 292);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(184, 23);
+            this.button3.TabIndex = 23;
+            this.button3.Text = "Отменить выделение";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // label18
             // 
@@ -585,6 +612,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Персонал";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(15, 264);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(184, 23);
+            this.button5.TabIndex = 23;
+            this.button5.Text = "Удалить запись";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
@@ -806,6 +842,16 @@
             this.tabPage3.Text = "Заказы";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // btnCancelSelection
+            // 
+            this.btnCancelSelection.Location = new System.Drawing.Point(16, 301);
+            this.btnCancelSelection.Name = "btnCancelSelection";
+            this.btnCancelSelection.Size = new System.Drawing.Size(184, 23);
+            this.btnCancelSelection.TabIndex = 41;
+            this.btnCancelSelection.Text = "Отменить выделение";
+            this.btnCancelSelection.UseVisualStyleBackColor = true;
+            this.btnCancelSelection.Click += new System.EventHandler(this.cancelSelection);
+            // 
             // cbPartsOrder
             // 
             this.cbPartsOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1011,6 +1057,7 @@
             // 
             this.cbOrderNum.DataSource = this.orderNumData1BindingSource;
             this.cbOrderNum.DisplayMember = "order_num";
+            this.cbOrderNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrderNum.FormattingEnabled = true;
             this.cbOrderNum.Location = new System.Drawing.Point(23, 55);
             this.cbOrderNum.Name = "cbOrderNum";
@@ -1032,6 +1079,7 @@
             // 
             this.cbStatusOrder.DataSource = this.statusData1BindingSource;
             this.cbStatusOrder.DisplayMember = "status_name";
+            this.cbStatusOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStatusOrder.FormattingEnabled = true;
             this.cbStatusOrder.Location = new System.Drawing.Point(23, 213);
             this.cbStatusOrder.Name = "cbStatusOrder";
@@ -1307,52 +1355,6 @@
             this.btnExit.Text = "X";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.exitButton);
-            // 
-            // btnCancelSelection
-            // 
-            this.btnCancelSelection.Location = new System.Drawing.Point(16, 301);
-            this.btnCancelSelection.Name = "btnCancelSelection";
-            this.btnCancelSelection.Size = new System.Drawing.Size(184, 23);
-            this.btnCancelSelection.TabIndex = 41;
-            this.btnCancelSelection.Text = "Отменить выделение";
-            this.btnCancelSelection.UseVisualStyleBackColor = true;
-            this.btnCancelSelection.Click += new System.EventHandler(this.cancelSelection);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(24, 215);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(184, 23);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Отменить выделение";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(9, 292);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(184, 23);
-            this.button3.TabIndex = 23;
-            this.button3.Text = "Отменить выделение";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(9, 263);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(184, 23);
-            this.button4.TabIndex = 24;
-            this.button4.Text = "Удалить запись";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(15, 264);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(184, 23);
-            this.button5.TabIndex = 23;
-            this.button5.Text = "Удалить запись";
-            this.button5.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

@@ -137,6 +137,7 @@ namespace ARU
             order.order_date = txtOrderData.Value.Date;
             order.order_num = Convert.ToInt32(dgvOrder[0, dgvOrder.Rows.Count - 1].Value) + 1;
             order.parts_order = Convert.ToInt32(cbPartsOrder.GetItemText(cbPartsOrder.SelectedItem));
+            order.added_parts = 0;
 
 
             if (String.IsNullOrEmpty(order.employee_id.ToString()) || String.IsNullOrEmpty(order.client_id.ToString()) || String.IsNullOrEmpty(order.order_sum.ToString()) || String.IsNullOrEmpty(order.order_date.Date.ToString())
@@ -163,6 +164,7 @@ namespace ARU
                 txtEmployeeID.Text = txtClientID.Text = txtOrderSum.Text = txtOrderData.Text = cbPartsOrder.Text = "";
                 deceased.id = 0;
                 this.orderTableAdapter2.Fill(this.orderData1.Order);
+                this.orderTableAdapter3.Fill(this.orderNumData1.Order);
                 MessageBox.Show("Заказ успешно добавлен");
             }
         }
@@ -221,7 +223,13 @@ namespace ARU
             using (ARUDBEntities db = new ARUDBEntities())
             {
                 if (orderGrave.id == 0)
+                {
+                    //Возможно нужно добавить ограничение
+                    order.id = orderGrave.order_id;
+                    order.added_parts += 1;
                     db.Order_Grave.Add(orderGrave);
+                    db.Entry(order).State = EntityState.Modified;
+                }
                 else
                     db.Entry(orderGrave).State = EntityState.Modified;
                 db.SaveChanges();
@@ -242,7 +250,7 @@ namespace ARU
                 db.Entry(deceased).State = EntityState.Modified;
                 db.SaveChanges();
                 this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
-                this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
+                this.orderTableAdapter3.Fill(this.orderNumData1.Order);
             }
         }
 

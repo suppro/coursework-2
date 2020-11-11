@@ -285,6 +285,8 @@ namespace ARU {
             
             private global::System.Data.DataColumn columnparts_order;
             
+            private global::System.Data.DataColumn columnadded_parts;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public OrderDataTable() {
@@ -344,6 +346,14 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn added_partsColumn {
+                get {
+                    return this.columnadded_parts;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -379,12 +389,13 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public OrderRow AddOrderRow(int order_num, int parts_order) {
+            public OrderRow AddOrderRow(int order_num, int parts_order, int added_parts) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         order_num,
                         null,
-                        parts_order};
+                        parts_order,
+                        added_parts};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -417,6 +428,7 @@ namespace ARU {
                 this.columnorder_num = base.Columns["order_num"];
                 this.columnid = base.Columns["id"];
                 this.columnparts_order = base.Columns["parts_order"];
+                this.columnadded_parts = base.Columns["added_parts"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -428,6 +440,8 @@ namespace ARU {
                 base.Columns.Add(this.columnid);
                 this.columnparts_order = new global::System.Data.DataColumn("parts_order", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnparts_order);
+                this.columnadded_parts = new global::System.Data.DataColumn("added_parts", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadded_parts);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnorder_num.AllowDBNull = false;
@@ -438,6 +452,7 @@ namespace ARU {
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
                 this.columnparts_order.AllowDBNull = false;
+                this.columnadded_parts.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -610,6 +625,17 @@ namespace ARU {
                     this[this.tableOrder.parts_orderColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int added_parts {
+                get {
+                    return ((int)(this[this.tableOrder.added_partsColumn]));
+                }
+                set {
+                    this[this.tableOrder.added_partsColumn] = value;
+                }
+            }
         }
         
         /// <summary>
@@ -774,27 +800,30 @@ namespace ARU.OrderNumDataTableAdapters {
             tableMapping.ColumnMappings.Add("order_num", "order_num");
             tableMapping.ColumnMappings.Add("id", "id");
             tableMapping.ColumnMappings.Add("parts_order", "parts_order");
+            tableMapping.ColumnMappings.Add("added_parts", "added_parts");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [Order] WHERE (([order_num] = @Original_order_num) AND ([id] = @Origi" +
-                "nal_id) AND ([parts_order] = @Original_parts_order))";
+                "nal_id) AND ([parts_order] = @Original_parts_order) AND ([added_parts] = @Origin" +
+                "al_added_parts))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_num", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_added_parts", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "added_parts", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [Order] SET [order_num] = @order_num, [parts_order] = @parts_order WHERE (" +
-                "([order_num] = @Original_order_num) AND ([id] = @Original_id) AND ([parts_order]" +
-                " = @Original_parts_order));\r\nSELECT order_num, id, parts_order FROM [Order] WHER" +
-                "E (id = @id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Order] SET [order_num] = @order_num, [parts_order] = @parts_order, [added_parts] = @added_parts WHERE (([order_num] = @Original_order_num) AND ([id] = @Original_id) AND ([parts_order] = @Original_parts_order) AND ([added_parts] = @Original_added_parts));
+SELECT order_num, id, parts_order, added_parts FROM [Order] WHERE (id = @id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@order_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@added_parts", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "added_parts", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_num", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_added_parts", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "added_parts", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -811,7 +840,8 @@ namespace ARU.OrderNumDataTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        order_num, id, parts_order\r\nFROM            [Order]";
+            this._commandCollection[0].CommandText = "SELECT        order_num, id, parts_order, added_parts\r\nFROM            [Order]\r\nW" +
+                "HERE        (added_parts < parts_order)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -872,10 +902,11 @@ namespace ARU.OrderNumDataTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_order_num, int Original_id, int Original_parts_order) {
+        public virtual int Delete(int Original_order_num, int Original_id, int Original_parts_order, int Original_added_parts) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_order_num));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_id));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_parts_order));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_added_parts));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -896,13 +927,15 @@ namespace ARU.OrderNumDataTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int order_num, int parts_order, int Original_order_num, int Original_id, int Original_parts_order, int id) {
+        public virtual int Update(int order_num, int parts_order, int added_parts, int Original_order_num, int Original_id, int Original_parts_order, int Original_added_parts, int id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(order_num));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(parts_order));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_order_num));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_id));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_parts_order));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(id));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(added_parts));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_order_num));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_id));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_parts_order));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_added_parts));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -923,8 +956,8 @@ namespace ARU.OrderNumDataTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int order_num, int parts_order, int Original_order_num, int Original_id, int Original_parts_order) {
-            return this.Update(order_num, parts_order, Original_order_num, Original_id, Original_parts_order, Original_id);
+        public virtual int Update(int order_num, int parts_order, int added_parts, int Original_order_num, int Original_id, int Original_parts_order, int Original_added_parts) {
+            return this.Update(order_num, parts_order, added_parts, Original_order_num, Original_id, Original_parts_order, Original_added_parts, Original_id);
         }
     }
     
