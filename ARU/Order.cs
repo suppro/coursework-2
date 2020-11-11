@@ -27,6 +27,7 @@ namespace ARU
         public int order_sum { get; set; }
         public System.DateTime order_date { get; set; }
         public int parts_order { get; set; }
+        public int added_parts { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Employee Employee { get; set; }

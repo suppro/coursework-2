@@ -9,20 +9,21 @@ namespace ARU
 {
     public partial class Form1 : Form
     {
+        string loginName;
         Client client = new Client();
         Grave grave = new Grave();
         Employee employee = new Employee();
         Deceased deceased = new Deceased();
         Order order = new Order();
         Order_Grave orderGrave = new Order_Grave();
-        public Form1()
+        public Form1(string loginName)
         {
             InitializeComponent();
+            this.loginName = loginName;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "orderData1.Order". При необходимости она может быть перемещена или удалена.
             this.orderTableAdapter2.Fill(this.orderData1.Order);
             this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
             this.positionTableAdapter1.Fill(this.positionsData1.Position);
@@ -244,6 +245,7 @@ namespace ARU
                 this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
             }
         }
+
         //Обновление
         private void selectClient(object sender, EventArgs e)
         {
@@ -295,5 +297,56 @@ namespace ARU
                 btnDeceased.Text = "Обновить запись";
             }
         }
+
+        private void selectOrder(object sender, EventArgs e)
+        {
+            if (dgvDeceased.CurrentRow.Index != -1)
+            {
+                int numberOrder;
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    
+                    order = db.Order.Where(x => x.id == order.id).FirstOrDefault();
+                    numberOrder = order.order_num;
+                }
+                btnAddOrder.Enabled = false;
+                btnClarification.Enabled = true;
+                btnCancelSelection.Enabled = true;
+                btnDeceased.Text = "Обновить запись";
+            }
+        }
+
+        private void exitButton(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Visible = true;
+            this.Close();
+        }
+
+        private void cancelSelection(object sender, EventArgs e)
+        {
+            dgvOrder.ClearSelection();
+            dgvClient.ClearSelection();
+            dgvDeceased.ClearSelection();
+            dgvPartsOrder.ClearSelection();
+            dgvEmployee.ClearSelection();
+        }
+
+        /*
+        private void refreshForms()
+        {
+            orderNumData1BindingSource.Filter = "";
+
+            string teamSelected = cmbTeams.GetItemText(cmbTeams.SelectedItem);
+
+            dataPaymentBindingSource.Filter = $"team_name = '{teamSelected}'";
+            dataLineUpBindingSource.Filter = $"team_name = '{teamSelected}'";
+            this.dataTable1TableAdapter1.Fill(this.dataLineUp.DataTable1);
+            this.dataTable1TableAdapter.Fill(this.dataPayment.DataTable1);
+            dgvPayments.ClearSelection();
+            listBox1.ClearSelected();
+        }
+        */
+
     }
 }

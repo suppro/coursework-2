@@ -72,6 +72,7 @@
           <Property Name="order_sum" Type="int" Nullable="false" />
           <Property Name="order_date" Type="date" Nullable="false" />
           <Property Name="parts_order" Type="int" Nullable="false" />
+          <Property Name="added_parts" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Order_Grave">
           <Key>
@@ -335,6 +336,7 @@
           <Property Name="order_sum" Type="Int32" Nullable="false" />
           <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="parts_order" Type="Int32" Nullable="false" />
+          <Property Name="added_parts" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
           <NavigationProperty Name="Order_Grave" Relationship="Self.FK_Order_Grave_Order" FromRole="Order" ToRole="Order_Grave" />
@@ -604,6 +606,7 @@
                 <ScalarProperty Name="order_sum" ColumnName="order_sum" />
                 <ScalarProperty Name="order_date" ColumnName="order_date" />
                 <ScalarProperty Name="parts_order" ColumnName="parts_order" />
+                <ScalarProperty Name="added_parts" ColumnName="added_parts" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

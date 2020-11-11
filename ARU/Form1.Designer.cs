@@ -87,13 +87,20 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnEmployee = new System.Windows.Forms.Button();
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeeData1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.employeeData1 = new ARU.EmployeeData();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cbPartsOrder = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnClarification = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.txtOrderData = new System.Windows.Forms.DateTimePicker();
             this.txtOrderSum = new System.Windows.Forms.TextBox();
@@ -103,7 +110,7 @@
             this.txtEmployeeID = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnAddOrder = new System.Windows.Forms.Button();
             this.dgvOrder = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -154,14 +161,12 @@
             this.positionTableAdapter1 = new ARU.PositionsDataTableAdapters.PositionTableAdapter();
             this.dataTable1TableAdapter5 = new ARU.GraveDataTableAdapters.DataTable1TableAdapter();
             this.orderTableAdapter2 = new ARU.OrderDataTableAdapters.OrderTableAdapter();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnCancelSelection = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
@@ -209,6 +214,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.btnDeleteClient);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
@@ -359,6 +365,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button4);
+            this.tabPage5.Controls.Add(this.button3);
             this.tabPage5.Controls.Add(this.label18);
             this.tabPage5.Controls.Add(this.dtimeDead);
             this.tabPage5.Controls.Add(this.label17);
@@ -499,6 +507,7 @@
             this.dgvDeceased.RowHeadersVisible = false;
             this.dgvDeceased.Size = new System.Drawing.Size(588, 355);
             this.dgvDeceased.TabIndex = 0;
+            this.dgvDeceased.DoubleClick += new System.EventHandler(this.selectDeceased);
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -555,6 +564,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button5);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.txtEmployeeAge);
             this.tabPage2.Controls.Add(this.cmbEmployeePosition);
@@ -710,6 +720,56 @@
             this.dgvEmployee.RowHeadersVisible = false;
             this.dgvEmployee.Size = new System.Drawing.Size(564, 355);
             this.dgvEmployee.TabIndex = 0;
+            this.dgvEmployee.DoubleClick += new System.EventHandler(this.selectPersonal);
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "id";
+            this.dataGridViewTextBoxColumn12.HeaderText = "ID Сотрудника";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "position_name";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Должность";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "surname";
+            this.dataGridViewTextBoxColumn13.HeaderText = "Фамилия";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn14.HeaderText = "Имя";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.DataPropertyName = "patronymic";
+            this.dataGridViewTextBoxColumn15.HeaderText = "Отчество";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.DataPropertyName = "age";
+            this.dataGridViewTextBoxColumn16.HeaderText = "Возраст";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            this.dataGridViewTextBoxColumn17.DataPropertyName = "login";
+            this.dataGridViewTextBoxColumn17.HeaderText = "Логин";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.DataPropertyName = "password";
+            this.dataGridViewTextBoxColumn18.HeaderText = "Пароль";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             // 
             // employeeData1BindingSource
             // 
@@ -723,10 +783,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnCancelSelection);
             this.tabPage3.Controls.Add(this.cbPartsOrder);
             this.tabPage3.Controls.Add(this.label25);
-            this.tabPage3.Controls.Add(this.button8);
-            this.tabPage3.Controls.Add(this.button7);
+            this.tabPage3.Controls.Add(this.btnClarification);
             this.tabPage3.Controls.Add(this.label19);
             this.tabPage3.Controls.Add(this.txtOrderData);
             this.tabPage3.Controls.Add(this.txtOrderSum);
@@ -736,7 +796,7 @@
             this.tabPage3.Controls.Add(this.txtEmployeeID);
             this.tabPage3.Controls.Add(this.label23);
             this.tabPage3.Controls.Add(this.label24);
-            this.tabPage3.Controls.Add(this.button5);
+            this.tabPage3.Controls.Add(this.btnAddOrder);
             this.tabPage3.Controls.Add(this.dgvOrder);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -770,23 +830,15 @@
             this.label25.TabIndex = 39;
             this.label25.Text = "Кол-во частей заказа";
             // 
-            // button8
+            // btnClarification
             // 
-            this.button8.Location = new System.Drawing.Point(16, 272);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(184, 23);
-            this.button8.TabIndex = 38;
-            this.button8.Text = "Изменить заказ";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(18, 335);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(184, 23);
-            this.button7.TabIndex = 37;
-            this.button7.Text = "Уточнить детали заказа";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnClarification.Enabled = false;
+            this.btnClarification.Location = new System.Drawing.Point(16, 272);
+            this.btnClarification.Name = "btnClarification";
+            this.btnClarification.Size = new System.Drawing.Size(184, 23);
+            this.btnClarification.TabIndex = 37;
+            this.btnClarification.Text = "Уточнить детали заказа";
+            this.btnClarification.UseVisualStyleBackColor = true;
             // 
             // label19
             // 
@@ -862,15 +914,15 @@
             this.label24.TabIndex = 24;
             this.label24.Text = "Добавить заказ";
             // 
-            // button5
+            // btnAddOrder
             // 
-            this.button5.Location = new System.Drawing.Point(16, 243);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(184, 23);
-            this.button5.TabIndex = 23;
-            this.button5.Text = "Добавить заказ";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.AddOrder);
+            this.btnAddOrder.Location = new System.Drawing.Point(16, 243);
+            this.btnAddOrder.Name = "btnAddOrder";
+            this.btnAddOrder.Size = new System.Drawing.Size(184, 23);
+            this.btnAddOrder.TabIndex = 23;
+            this.btnAddOrder.Text = "Добавить заказ";
+            this.btnAddOrder.UseVisualStyleBackColor = true;
+            this.btnAddOrder.Click += new System.EventHandler(this.AddOrder);
             // 
             // dgvOrder
             // 
@@ -1245,65 +1297,75 @@
             // 
             this.orderTableAdapter2.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn12
+            // btnExit
             // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "id";
-            this.dataGridViewTextBoxColumn12.HeaderText = "ID Сотрудника";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Location = new System.Drawing.Point(1042, 1);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(38, 26);
+            this.btnExit.TabIndex = 35;
+            this.btnExit.Text = "X";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.exitButton);
             // 
-            // dataGridViewTextBoxColumn11
+            // btnCancelSelection
             // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "position_name";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Должность";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.btnCancelSelection.Location = new System.Drawing.Point(16, 301);
+            this.btnCancelSelection.Name = "btnCancelSelection";
+            this.btnCancelSelection.Size = new System.Drawing.Size(184, 23);
+            this.btnCancelSelection.TabIndex = 41;
+            this.btnCancelSelection.Text = "Отменить выделение";
+            this.btnCancelSelection.UseVisualStyleBackColor = true;
+            this.btnCancelSelection.Click += new System.EventHandler(this.cancelSelection);
             // 
-            // dataGridViewTextBoxColumn13
+            // button2
             // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "surname";
-            this.dataGridViewTextBoxColumn13.HeaderText = "Фамилия";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.button2.Location = new System.Drawing.Point(24, 215);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(184, 23);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Отменить выделение";
+            this.button2.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewTextBoxColumn14
+            // button3
             // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "name";
-            this.dataGridViewTextBoxColumn14.HeaderText = "Имя";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.button3.Location = new System.Drawing.Point(9, 292);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(184, 23);
+            this.button3.TabIndex = 23;
+            this.button3.Text = "Отменить выделение";
+            this.button3.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewTextBoxColumn15
+            // button4
             // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "patronymic";
-            this.dataGridViewTextBoxColumn15.HeaderText = "Отчество";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.button4.Location = new System.Drawing.Point(9, 263);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(184, 23);
+            this.button4.TabIndex = 24;
+            this.button4.Text = "Удалить запись";
+            this.button4.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewTextBoxColumn16
+            // button5
             // 
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "age";
-            this.dataGridViewTextBoxColumn16.HeaderText = "Возраст";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.DataPropertyName = "login";
-            this.dataGridViewTextBoxColumn17.HeaderText = "Логин";
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            // 
-            // dataGridViewTextBoxColumn18
-            // 
-            this.dataGridViewTextBoxColumn18.DataPropertyName = "password";
-            this.dataGridViewTextBoxColumn18.HeaderText = "Пароль";
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.button5.Location = new System.Drawing.Point(15, 264);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(184, 23);
+            this.button5.TabIndex = 23;
+            this.button5.Text = "Удалить запись";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1079, 444);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1419,7 +1481,7 @@
         private System.Windows.Forms.TextBox txtEmployeeID;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnAddOrder;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ComboBox cbStatusOrder;
         private System.Windows.Forms.Label label27;
@@ -1436,8 +1498,7 @@
         private PositionsData positionsData;
         private PositionsDataTableAdapters.PositionTableAdapter positionTableAdapter;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnClarification;
         private OrderData orderData;
         private OrderDataTableAdapters.OrderTableAdapter orderTableAdapter;
         private PartsOrderData partsOrderData;
@@ -1532,6 +1593,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnCancelSelection;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button5;
     }
 }
 

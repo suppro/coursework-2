@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="702122992a194a6c94346551c6345e60" Name="Diagram1">
-        <EntityTypeShape EntityType="ARUDBModel.Client" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Deceased" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.DeceasedStatus" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Employee" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Grave" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.GraveStatus" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+      <Diagram DiagramId="741210cb283d4554817ae7c35f1f2106" Name="Diagram1">
+        <EntityTypeShape EntityType="ARUDBModel.Client" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Deceased" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.DeceasedStatus" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Employee" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Grave" Width="1.5" PointX="9.375" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.GraveStatus" Width="1.5" PointX="9.375" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ARUDBModel.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Order_Grave" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Position" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Status" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Order_Grave" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Position" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Status" Width="1.5" PointX="10" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="ARUDBModel.FK_Order_Client" ManuallyRouted="false" />
         <AssociationConnector Association="ARUDBModel.FK_Deceased_DeceasedStatus" ManuallyRouted="false" />
         <AssociationConnector Association="ARUDBModel.FK_Order_Grave_Deceased" ManuallyRouted="false" />
