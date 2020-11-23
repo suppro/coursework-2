@@ -9,8 +9,8 @@
         <EntityTypeShape EntityType="ARUDBModel.Deceased" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ARUDBModel.DeceasedStatus" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ARUDBModel.Employee" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.Grave" Width="1.5" PointX="9.375" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ARUDBModel.GraveStatus" Width="1.5" PointX="9.375" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.Grave" Width="1.5" PointX="10" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARUDBModel.GraveStatus" Width="1.5" PointX="10" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ARUDBModel.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ARUDBModel.Order_Grave" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ARUDBModel.Position" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />

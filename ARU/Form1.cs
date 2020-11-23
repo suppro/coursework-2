@@ -135,9 +135,13 @@ namespace ARU
             order.client_id = Convert.ToInt32(txtClientID.Text.Trim());
             order.order_sum = Convert.ToInt32(txtOrderSum.Text.Trim());
             order.order_date = txtOrderData.Value.Date;
-            order.order_num = Convert.ToInt32(dgvOrder[0, dgvOrder.Rows.Count - 1].Value) + 1;
+            
             order.parts_order = Convert.ToInt32(cbPartsOrder.GetItemText(cbPartsOrder.SelectedItem));
             order.added_parts = 0;
+            if (order.id == 1)
+                order.order_num = 544001;
+            else
+                order.order_num = Convert.ToInt32(dgvOrder[0, dgvOrder.Rows.Count - 1].Value) + 1;
 
 
             if (String.IsNullOrEmpty(order.employee_id.ToString()) || String.IsNullOrEmpty(order.client_id.ToString()) || String.IsNullOrEmpty(order.order_sum.ToString()) || String.IsNullOrEmpty(order.order_date.Date.ToString())
