@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ARU
 {
-    public partial class Form1 : Form
+    public partial class ProgramForm : Form
     {
         string loginName;
         Client client = new Client();
@@ -16,7 +16,7 @@ namespace ARU
         Deceased deceased = new Deceased();
         Order order = new Order();
         Order_Grave orderGrave = new Order_Grave();
-        public Form1(string loginName)
+        public ProgramForm(string loginName)
         {
             InitializeComponent();
             this.loginName = loginName;
@@ -24,16 +24,30 @@ namespace ARU
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.orderTableAdapter2.Fill(this.orderData1.Order);
-            this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
-            this.positionTableAdapter1.Fill(this.positionsData1.Position);
-            this.statusTableAdapter1.Fill(this.statusData1.Status);
-            this.orderTableAdapter3.Fill(this.orderNumData1.Order);
-            this.dataTable1TableAdapter4.Fill(this.partsOrderData1.DataTable1);
-            this.orderTableAdapter2.Fill(this.orderData1.Order);
-            this.dataTable1TableAdapter3.Fill(this.employeeData1.DataTable1);
-            this.deceasedTableAdapter1.Fill(this.deceasedData1.Deceased);
-            this.clientTableAdapter1.Fill(this.clientsData1.Client);
+            LoadUserInfo();
+            UpdateForm();
+        }
+
+        private void LoadUserInfo()
+        {
+            lbDate.Text = Convert.ToString(DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year);
+            using (ARUDBEntities db = new ARUDBEntities())
+            {
+
+                Employee model = (from u in db.Employee
+                                  join q in db.Position on u.position_id equals q.id
+                                  where u.login == loginName
+                                  select u).FirstOrDefault();
+                lbEmployeeName.Text = model.name + " " + model.surname;
+                lbPosition.Text = model.Position.position_name;
+                if (model.position_id != 1)
+                    tabPage2.Parent = null;
+                if (model == null)
+                {
+                    MessageBox.Show("Ошибка закрузки данных пользователя", "Ошибка");
+                    return;
+                }
+            }
         }
 
         //Добавление 
@@ -42,7 +56,8 @@ namespace ARU
             client.surname = txtClientSurname.Text.Trim();
             client.name = txtClientName.Text.Trim();
             client.patronymic = txtClientPatronymic.Text.Trim();
-            if (String.IsNullOrEmpty(client.surname) || String.IsNullOrEmpty(client.name) || String.IsNullOrEmpty(client.patronymic))
+            client.telephone_number = txtClientPhone.Text.Trim();
+            if (String.IsNullOrEmpty(client.surname) || String.IsNullOrEmpty(client.name) || String.IsNullOrEmpty(client.patronymic) || String.IsNullOrEmpty(client.telephone_number))
             {
                 MessageBox.Show("Все поля должны быть заполненны"); return;
             }
@@ -55,11 +70,9 @@ namespace ARU
                     db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            txtClientName.Text = txtClientSurname.Text = txtClientPatronymic.Text = "";
-            client.id = 0;
-            btnDeleteClient.Enabled = true;
             this.clientTableAdapter1.Fill(this.clientsData1.Client);
             MessageBox.Show("Данные успешно добавлены");
+            ClearClient();
         }
         private void AddGrave(object sender, EventArgs e)
         {
@@ -92,14 +105,12 @@ namespace ARU
             using (ARUDBEntities db = new ARUDBEntities())
             {
                 if (client.id == 0)
-                    db.Client.Add(client);
+                    db.Employee.Add(employee);
                 else
-                    db.Entry(client).State = EntityState.Modified;
+                    db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
-                txtEmployeeName.Text = txtEmployeeSurname.Text = txtEmployeePatronymic.Text = txtEmployeeAge.Text = cmbEmployeePosition.Text =  "";
-                client.id = 0;
-                this.dataTable1TableAdapter3.Fill(this.employeeData1.DataTable1);
-                MessageBox.Show("Сотрудник успешно добавлен");
+                MessageBox.Show("Данные успешно добавлены");
+                ClearEmployee();
             }
         }
         private void AddDeceased(object sender, EventArgs e)
@@ -121,11 +132,9 @@ namespace ARU
                     db.Deceased.Add(deceased);
                 else
                     db.Entry(deceased).State = EntityState.Modified;
-                db.SaveChanges();
-                txtDeceasedName.Text = txtDeceasedSurname.Text = txtDeceasedPatronymic.Text = dtimeBirth.Text = dtimeDead.Text = "";
-                deceased.id = 0;
-                this.deceasedTableAdapter1.Fill(this.deceasedData1.Deceased);
-                MessageBox.Show("Покойник успешно добавлен");
+                db.SaveChanges();              
+                MessageBox.Show("Данные успешно добавлены");
+                ClearDeceased();
             }
         }
 
@@ -257,29 +266,49 @@ namespace ARU
                 this.orderTableAdapter3.Fill(this.orderNumData1.Order);
             }
         }
-
-        //Обновление
-        private void selectClient(object sender, EventArgs e)
+        private void SelectClient(object sender, EventArgs e)
         {
             if (dgvClient.CurrentRow.Index != -1)
             {
-                client.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
+                btnClearClient.Enabled = true;
+                client.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["dataGridViewTextBoxColumn4"].Value);
                 using (ARUDBEntities db = new ARUDBEntities())
                 {
                     client = db.Client.Where(x => x.id == client.id).FirstOrDefault();
                     txtClientName.Text = client.name;
                     txtClientSurname.Text = client.surname;
                     txtClientPatronymic.Text = client.patronymic;
+                    txtClientPhone.Text = client.telephone_number;
                 }
                 btnClient.Text = "Обновить запись";
-                btnDeleteClient.Enabled = false;
+                btnDeleteClient.Enabled = true;
             }
         }
-        private void selectPersonal(object sender, EventArgs e)
+        //Обновление
+        private void SelectPartOrder(object sender, EventArgs e)
+        {
+            if (dgvClient.CurrentRow.Index != -1)
+            {
+                btnClearPartOrder.Enabled = true;
+                orderGrave.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["dataGridViewTextBoxColumn24"].Value);
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    orderGrave = db.Order_Grave.Where(x => x.id == orderGrave.id).FirstOrDefault();
+                    txtClientName.Text = client.name;
+                    txtClientSurname.Text = client.surname;
+                    txtClientPatronymic.Text = client.patronymic;
+                    txtClientPhone.Text = client.telephone_number;
+                }
+                btnClient.Text = "Обновить запись";
+                btnDeleteClient.Enabled = true;
+            }
+        }
+        private void SelectEmployee(object sender, EventArgs e)
         {
             if (dgvEmployee.CurrentRow.Index != -1)
             {
-                employee.id = Convert.ToInt32(dgvEmployee.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
+                btnClearEmployee.Enabled = true;
+                employee.id = Convert.ToInt32(dgvEmployee.CurrentRow.Cells["dataGridViewTextBoxColumn12"].Value);
                 using (ARUDBEntities db = new ARUDBEntities())
                 {
                     employee = db.Employee.Where(x => x.id == employee.id).FirstOrDefault();
@@ -290,13 +319,15 @@ namespace ARU
                     cmbEmployeePosition.SelectedIndex = employee.position_id;
                 }
                 btnEmployee.Text = "Обновить запись";
+                btnDeleteEmployee.Enabled = true;
             }
         }
-        private void selectDeceased(object sender, EventArgs e)
+        private void SelectDeceased(object sender, EventArgs e)
         {
             if (dgvDeceased.CurrentRow.Index != -1)
             {
-                deceased.id = Convert.ToInt32(dgvDeceased.CurrentRow.Cells["idDataGridViewTextBoxColumn"].Value);
+                btnClearDeceased.Enabled = true;
+                deceased.id = Convert.ToInt32(dgvDeceased.CurrentRow.Cells["dataGridViewTextBoxColumn5"].Value);
                 using (ARUDBEntities db = new ARUDBEntities())
                 {
                     deceased = db.Deceased.Where(x => x.id == client.id).FirstOrDefault();
@@ -307,10 +338,11 @@ namespace ARU
                     dtimeDead.Value = deceased.death_date;
                 }
                 btnDeceased.Text = "Обновить запись";
+                btnDeleteDeceased.Enabled = true;
             }
         }
 
-        private void selectOrder(object sender, EventArgs e)
+        private void SelectOrder(object sender, EventArgs e)
         {
             if (dgvDeceased.CurrentRow.Index != -1)
             {
@@ -322,20 +354,12 @@ namespace ARU
                     numberOrder = order.order_num;
                 }
                 btnAddOrder.Enabled = false;
-                btnClarification.Enabled = true;
                 btnCancelSelection.Enabled = true;
                 btnDeceased.Text = "Обновить запись";
             }
         }
 
-        private void exitButton(object sender, EventArgs e)
-        {
-            LoginForm loginForm = new LoginForm();
-            loginForm.Visible = true;
-            this.Close();
-        }
-
-        private void cancelSelection(object sender, EventArgs e)
+        private void CancelSelection(object sender, EventArgs e)
         {
             dgvOrder.ClearSelection();
             dgvClient.ClearSelection();
@@ -344,21 +368,114 @@ namespace ARU
             dgvEmployee.ClearSelection();
         }
 
-        /*
-        private void refreshForms()
+        private void UpdateForm()
         {
-            orderNumData1BindingSource.Filter = "";
-
-            string teamSelected = cmbTeams.GetItemText(cmbTeams.SelectedItem);
-
-            dataPaymentBindingSource.Filter = $"team_name = '{teamSelected}'";
-            dataLineUpBindingSource.Filter = $"team_name = '{teamSelected}'";
-            this.dataTable1TableAdapter1.Fill(this.dataLineUp.DataTable1);
-            this.dataTable1TableAdapter.Fill(this.dataPayment.DataTable1);
-            dgvPayments.ClearSelection();
-            listBox1.ClearSelected();
+            this.orderTableAdapter2.Fill(this.orderData1.Order);
+            this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
+            this.positionTableAdapter1.Fill(this.positionsData1.Position);
+            this.statusTableAdapter1.Fill(this.statusData1.Status);
+            this.orderTableAdapter3.Fill(this.orderNumData1.Order);
+            this.dataTable1TableAdapter4.Fill(this.partsOrderData1.DataTable1);
+            this.orderTableAdapter2.Fill(this.orderData1.Order);
+            this.dataTable1TableAdapter3.Fill(this.employeeData1.DataTable1);
+            this.deceasedTableAdapter1.Fill(this.deceasedData1.Deceased);
+            this.clientTableAdapter1.Fill(this.clientsData1.Client);
         }
-        */
 
+        private void СloseApp(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void DeleteClient(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Удалить эту запись?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    client.deleted = 1;
+                    db.Entry(client).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            ClearClient();
+            btnDeleteClient.Enabled = false;
+            MessageBox.Show("Удаление прошло успешно");
+        }
+
+        private void DeleteEmployee(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Удалить эту запись?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    employee.deleted = 1;
+                    db.Entry(employee).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            ClearEmployee();
+            btnDeleteDeceased.Enabled = false;
+            MessageBox.Show("Удаление прошло успешно");
+        }
+
+        private void DeleteDeceased(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Удалить эту запись?", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    deceased.deleted = 1;
+                    db.Entry(deceased).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            ClearDeceased();
+            btnDeleteDeceased.Enabled = false;
+            MessageBox.Show("Удаление прошло успешно");
+        }
+
+        private void ClearClientClick(object sender, EventArgs e)
+        {
+            ClearClient();
+        }
+
+        private void ClearEmployeeClick(object sender, EventArgs e)
+        {
+            ClearEmployee();
+        }
+
+        private void ClearDeceasedClick(object sender, EventArgs e)
+        {
+            ClearDeceased();
+        }
+
+        private void ClearClient()
+        {
+            this.clientTableAdapter1.Fill(this.clientsData1.Client);
+            txtClientName.Text = txtClientSurname.Text = txtClientPatronymic.Text = txtClientPhone.Text = "";
+            btnClient.Text = "Добавить запись";
+            btnClearClient.Enabled = false;
+            btnDeleteClient.Enabled = false;
+            client.id = 0;
+        }
+        private void ClearEmployee()
+        {
+            this.dataTable1TableAdapter3.Fill(this.employeeData1.DataTable1);
+            txtEmployeeName.Text = txtEmployeeSurname.Text = txtEmployeePatronymic.Text = txtEmployeeAge.Text = cmbEmployeePosition.Text = "";
+            btnEmployee.Text = "Добавить запись";
+            btnClearClient.Enabled = false;
+            btnDeleteEmployee.Enabled = false;
+            employee.id = 0;
+        }
+        private void ClearDeceased()
+        {
+            this.deceasedTableAdapter1.Fill(this.deceasedData1.Deceased);
+            txtDeceasedName.Text = txtDeceasedSurname.Text = txtDeceasedPatronymic.Text = dtimeBirth.Text = dtimeDead.Text = "";
+            btnDeceased.Text = "Добавить запись";
+            btnClearClient.Enabled = false;
+            btnDeleteDeceased.Enabled = false;
+            deceased.id = 0;
+        }
     }
 }

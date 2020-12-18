@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
+      <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ClientsData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -72,7 +72,7 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Deceased.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
+      <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DeceasedData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,56 +80,62 @@
       <DependentUpon>DeceasedData.xsd</DependentUpon>
     </Compile>
     <Compile Include="DeceasedStatus.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
+      <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
+      <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EmployeeData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EmployeeData.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="Grave.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GraveStatus.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Grave.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Position.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grave.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
+    <Compile Include="ProgramForm.Designer.cs">
+      <DependentUpon>ProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GraveData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GraveData.xsd</DependentUpon>
     </Compile>
-    <Compile Include="GraveStatus.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
-    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBD.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBD.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBD.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBD.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBD.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBD.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -141,16 +147,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrderNumData.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Order_Grave.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
-    </Compile>
     <Compile Include="PartsOrderData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PartsOrderData.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Position.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
     </Compile>
     <Compile Include="PositionsData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -160,21 +160,15 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs">
-      <DependentUpon>ModelBD.tt</DependentUpon>
+      <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="StatusData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StatusData.xsd</DependentUpon>
     </Compile>
-    <Compile Include="СlarificationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="СlarificationForm.Designer.cs">
-      <DependentUpon>СlarificationForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ProgramForm.resx">
+      <DependentUpon>ProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -188,9 +182,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="СlarificationForm.resx">
-      <DependentUpon>СlarificationForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="ClientsData.xsc">
       <DependentUpon>ClientsData.xsd</DependentUpon>
     </None>
@@ -246,12 +237,12 @@
     <None Include="GraveData.xss">
       <DependentUpon>GraveData.xsd</DependentUpon>
     </None>
-    <EntityDeploy Include="ModelBD.edmx">
+    <EntityDeploy Include="ModelDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelBD.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ModelBD.edmx.diagram">
-      <DependentUpon>ModelBD.edmx</DependentUpon>
+    <None Include="ModelDB.edmx.diagram">
+      <DependentUpon>ModelDB.edmx</DependentUpon>
     </None>
     <None Include="OrderData.xsc">
       <DependentUpon>OrderData.xsd</DependentUpon>
@@ -326,15 +317,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelBD.Context.tt">
+    <Content Include="ModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelBD.edmx</DependentUpon>
-      <LastGenOutput>ModelBD.Context.cs</LastGenOutput>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelBD.tt">
+    <Content Include="ModelDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelBD.edmx</DependentUpon>
-      <LastGenOutput>ModelBD.cs</LastGenOutput>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <LastGenOutput>ModelDB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

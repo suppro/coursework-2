@@ -61,7 +61,7 @@ namespace ARU
             else
             {
                 this.Visible = false;
-                Form1 userForm = new Form1(login);
+                ProgramForm userForm = new ProgramForm(login);
                 userForm.Show();
             }
         }

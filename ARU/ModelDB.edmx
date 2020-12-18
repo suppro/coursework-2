@@ -13,6 +13,8 @@
           <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="patronymic" Type="varchar" MaxLength="50" />
+          <Property Name="telephone_number" Type="varchar" MaxLength="50" />
+          <Property Name="deleted" Type="int" />
         </EntityType>
         <EntityType Name="Deceased">
           <Key>
@@ -25,13 +27,14 @@
           <Property Name="patronymic" Type="varchar" MaxLength="50" />
           <Property Name="birth_date" Type="date" Nullable="false" />
           <Property Name="death_date" Type="date" Nullable="false" />
+          <Property Name="deleted" Type="int" />
         </EntityType>
         <EntityType Name="DeceasedStatus">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="deceased_status" Type="varchar" MaxLength="50" />
+          <Property Name="deceased_status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -45,6 +48,7 @@
           <Property Name="login" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="50" />
           <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="deleted" Type="int" />
         </EntityType>
         <EntityType Name="Grave">
           <Key>
@@ -268,6 +272,8 @@
           <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Order" />
         </EntityType>
         <EntityType Name="Deceased">
@@ -281,6 +287,7 @@
           <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="birth_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="death_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="deleted" Type="Int32" />
           <NavigationProperty Name="DeceasedStatus" Relationship="Self.FK_Deceased_DeceasedStatus" FromRole="Deceased" ToRole="DeceasedStatus" />
           <NavigationProperty Name="Order_Grave" Relationship="Self.FK_Order_Grave_Deceased" FromRole="Deceased" ToRole="Order_Grave" />
         </EntityType>
@@ -289,7 +296,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="deceased_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="deceased_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Deceased" Relationship="Self.FK_Deceased_DeceasedStatus" FromRole="DeceasedStatus" ToRole="Deceased" />
         </EntityType>
         <EntityType Name="Employee">
@@ -304,6 +311,7 @@
           <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="deleted" Type="Int32" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
         </EntityType>
@@ -541,6 +549,8 @@
                 <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="telephone_number" ColumnName="telephone_number" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -554,6 +564,7 @@
                 <ScalarProperty Name="patronymic" ColumnName="patronymic" />
                 <ScalarProperty Name="birth_date" ColumnName="birth_date" />
                 <ScalarProperty Name="death_date" ColumnName="death_date" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -576,6 +587,7 @@
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

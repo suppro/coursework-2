@@ -27,6 +27,7 @@ namespace ARU
         public string patronymic { get; set; }
         public System.DateTime birth_date { get; set; }
         public System.DateTime death_date { get; set; }
+        public Nullable<int> deleted { get; set; }
     
         public virtual DeceasedStatus DeceasedStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
