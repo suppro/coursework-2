@@ -10,6 +10,7 @@ namespace ARU
     public partial class ProgramForm : Form
     {
         string loginName;
+        int loginedUserId;
         Client client = new Client();
         Grave grave = new Grave();
         Employee employee = new Employee();
@@ -24,6 +25,12 @@ namespace ARU
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "partsOrderData1.DataTable1". При необходимости она может быть перемещена или удалена.
+            this.dataTable1TableAdapter4.Fill(this.partsOrderData1.DataTable1);
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "orderData1.Order". При необходимости она может быть перемещена или удалена.
+            this.orderTableAdapter2.Fill(this.orderData1.Order);
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "orderData1.Order". При необходимости она может быть перемещена или удалена.
+            this.orderTableAdapter2.Fill(this.orderData1.Order);
             LoadUserInfo();
             UpdateForm();
         }
@@ -40,6 +47,7 @@ namespace ARU
                                   select u).FirstOrDefault();
                 lbEmployeeName.Text = model.name + " " + model.surname;
                 lbPosition.Text = model.Position.position_name;
+                loginedUserId = model.id;
                 if (model.position_id != 1)
                     tabPage2.Parent = null;
                 if (model == null)
@@ -140,18 +148,24 @@ namespace ARU
 
         private void AddOrder(object sender, EventArgs e)
         {
-            order.employee_id = Convert.ToInt32(txtEmployeeID.Text.Trim());
+            order.employee_id = loginedUserId;
             order.client_id = Convert.ToInt32(txtClientID.Text.Trim());
             order.order_sum = Convert.ToInt32(txtOrderSum.Text.Trim());
             order.order_date = txtOrderData.Value.Date;
             
             order.parts_order = Convert.ToInt32(cbPartsOrder.GetItemText(cbPartsOrder.SelectedItem));
             order.added_parts = 0;
-            if (order.id == 1)
-                order.order_num = 544001;
-            else
-                order.order_num = Convert.ToInt32(dgvOrder[0, dgvOrder.Rows.Count - 1].Value) + 1;
 
+            using (ARUDBEntities db = new ARUDBEntities())
+            {
+                Order model = (from u in db.Order
+                               orderby u.order_num descending
+                               select u).FirstOrDefault();
+                if (model != null)
+                    order.order_num = model.order_num + 1;
+                else
+                    order.order_num = 544000;
+            }
 
             if (String.IsNullOrEmpty(order.employee_id.ToString()) || String.IsNullOrEmpty(order.client_id.ToString()) || String.IsNullOrEmpty(order.order_sum.ToString()) || String.IsNullOrEmpty(order.order_date.Date.ToString())
                 || String.IsNullOrEmpty(order.parts_order.ToString())  || String.IsNullOrEmpty(Convert.ToString(deceased.death_date)))
@@ -174,7 +188,7 @@ namespace ARU
                 else
                     db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
-                txtEmployeeID.Text = txtClientID.Text = txtOrderSum.Text = txtOrderData.Text = cbPartsOrder.Text = "";
+                txtClientID.Text = txtOrderSum.Text = txtOrderData.Text = cbPartsOrder.Text = "";
                 deceased.id = 0;
                 this.orderTableAdapter2.Fill(this.orderData1.Order);
                 this.orderTableAdapter3.Fill(this.orderNumData1.Order);
@@ -183,12 +197,17 @@ namespace ARU
         }
         private void AddPartOrder(object sender, EventArgs e)
         {
-            int numberOrder = Convert.ToInt32(cbOrderNum.GetItemText(cbOrderNum.SelectedItem));
+            int numberOrder = Convert.ToInt32(txtNumberOrder.Text);
             int numberGrave = Convert.ToInt32(txtNumGrave.Text.Trim());
-            orderGrave.order_id = Convert.ToInt32(cbOrderNum.SelectedValue.ToString());
-            orderGrave.status_id = cbStatusOrder.SelectedIndex + 1;
+            using (ARUDBEntities db = new ARUDBEntities())
+            {
+                order = db.Order.Where(x => x.order_num == numberOrder).FirstOrDefault();
+                orderGrave.order_id = order.id;
+            }
+            
             orderGrave.deceased_id = Convert.ToInt32(txtIdDeceased.Text.Trim());
             orderGrave.burial_date = dtimeFuneral.Value.Date;
+            bool add = true;
 
             if (String.IsNullOrEmpty(Convert.ToString(orderGrave.grave_id)) || String.IsNullOrEmpty(Convert.ToString(orderGrave.order_id)) || String.IsNullOrEmpty(Convert.ToString(orderGrave.status_id)) 
                 || String.IsNullOrEmpty(Convert.ToString(orderGrave.deceased_id)) || String.IsNullOrEmpty(Convert.ToString(orderGrave.burial_date)))
@@ -196,75 +215,67 @@ namespace ARU
                 MessageBox.Show("Все поля должны быть заполненны"); return;
             }
 
-            using (ARUDBEntities db = new ARUDBEntities())
-            {
-                Grave model = (from u in db.Grave
-                               where u.grave_number == numberGrave
-                               select u).FirstOrDefault();
-                orderGrave.grave_id = model.id;
-                if (model.gravestatus_id == 2)
-                {
-                    MessageBox.Show("Данное место захоронения уже занято"); return;
-                }
-            }
+            if (orderGrave.id == 0)
+                if (!VerificationForm(numberGrave))
+                    return;
 
-            DateTime dateBurial = new DateTime(dtimeFuneral.Value.Year, dtimeFuneral.Value.Month, dtimeFuneral.Value.Day);
-            using (ARUDBEntities db = new ARUDBEntities())
-            {
-                Order model = (from u in db.Order
-                               where u.id == orderGrave.order_id
-                               select u).FirstOrDefault();
-                DateTime dateOrder = new DateTime(model.order_date.Year, model.order_date.Month, model.order_date.Day);
-                if (dateBurial <= dateOrder)
-                {
-                    MessageBox.Show("Дата захоронения должна быть больше, чем дата заказа"); return;
-                }
-            }
-
-            using (ARUDBEntities db = new ARUDBEntities())
-            {
-                Deceased model = (from u in db.Deceased
-                                  where u.id == orderGrave.deceased_id
-                                  select u).FirstOrDefault();
-
-                if (model.deceased_status_id == 2)
-                {
-                    MessageBox.Show("Выбранный покойник уже похоронен"); return;
-                }
-            }
+            
 
             using (ARUDBEntities db = new ARUDBEntities())
             {
                 if (orderGrave.id == 0)
                 {
-                    //Возможно нужно добавить ограничение
-                    order.id = orderGrave.order_id;
-                    order.added_parts += 1;
+                    
+                    orderGrave.status_id = 1;
                     db.Order_Grave.Add(orderGrave);
-                    db.Entry(order).State = EntityState.Modified;
+                    MessageBox.Show("Часть заказа " + numberOrder + " успешно добавлена");
                 }
                 else
+                {
+                    numberOrder = Convert.ToInt32(txtNumberOrder.Text.Trim());
+                    orderGrave.status_id = Convert.ToInt32(cbStatusOrder.SelectedValue);
+                    MessageBox.Show(orderGrave.status_id.ToString());
                     db.Entry(orderGrave).State = EntityState.Modified;
+                    add = false;
+                    
+                }
                 db.SaveChanges();
-                txtNumGrave.Text = cbPartsOrder.Text = txtIdDeceased.Text = dtimeFuneral.Text = cbStatusOrder.Text = "";
-                orderGrave.id = 0;
-                this.dataTable1TableAdapter4.Fill(this.partsOrderData1.DataTable1);
-                MessageBox.Show("Часть заказа " + numberOrder  + " успешно добавлена");
+                ClearPartsOrder();
             }
 
-            using (ARUDBEntities db = new ARUDBEntities())
+            if (add)
             {
-                grave.id = orderGrave.grave_id;
-                grave.grave_number = numberGrave;
-                grave.gravestatus_id = 2;
-                deceased.id = orderGrave.deceased_id;
-                deceased.deceased_status_id = 2;
-                db.Entry(grave).State = EntityState.Modified;
-                db.Entry(deceased).State = EntityState.Modified;
-                db.SaveChanges();
-                this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
-                this.orderTableAdapter3.Fill(this.orderNumData1.Order);
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    order = db.Order.Where(x => x.id == orderGrave.order_id).FirstOrDefault();
+                    order.added_parts += 1;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    MessageBox.Show("Кол-во частей заказа стало " + order.added_parts);
+                }
+
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    grave = db.Grave.Where(x => x.id == orderGrave.grave_id).FirstOrDefault();
+                    grave.gravestatus_id = 2;
+                    db.Entry(grave).State = EntityState.Modified;
+                    db.SaveChanges();
+                    MessageBox.Show("Cтатус могилы изменился");
+                }
+                using (ARUDBEntities db = new ARUDBEntities())
+                {
+                    deceased = db.Deceased.Where(x => x.id == orderGrave.deceased_id).FirstOrDefault();
+                    //deceased.id = orderGrave.deceased_id;
+                    deceased.deceased_status_id = 2;
+                    db.Entry(deceased).State = EntityState.Modified;
+                    db.SaveChanges();
+                    MessageBox.Show("Статус покойника изменился");
+                }
+                UpdateForm();
             }
+
+            else
+               UpdateForm();
         }
         private void SelectClient(object sender, EventArgs e)
         {
@@ -290,16 +301,23 @@ namespace ARU
             if (dgvClient.CurrentRow.Index != -1)
             {
                 btnClearPartOrder.Enabled = true;
-                orderGrave.id = Convert.ToInt32(dgvClient.CurrentRow.Cells["dataGridViewTextBoxColumn24"].Value);
+                txtNumberOrder.Enabled = false;
+                txtIdDeceased.Enabled = false;
+                txtNumGrave.Enabled = false;
+                cbStatusOrder.Enabled = true;
+                dtimeFuneral.Enabled = false;
+                orderGrave.id = Convert.ToInt32(dgvPartsOrder.CurrentRow.Cells["dataGridViewTextBoxColumn31"].Value);
                 using (ARUDBEntities db = new ARUDBEntities())
                 {
                     orderGrave = db.Order_Grave.Where(x => x.id == orderGrave.id).FirstOrDefault();
-                    txtClientName.Text = client.name;
-                    txtClientSurname.Text = client.surname;
-                    txtClientPatronymic.Text = client.patronymic;
-                    txtClientPhone.Text = client.telephone_number;
+                    order = db.Order.Where(x => x.id == orderGrave.order_id).FirstOrDefault();
+                    grave = db.Grave.Where(x => x.id == orderGrave.grave_id).FirstOrDefault();
+                    txtNumberOrder.Text = order.order_num.ToString();
+                    txtIdDeceased.Text = orderGrave.deceased_id.ToString();
+                    txtNumGrave.Text = grave.grave_number.ToString();
+                    dtimeFuneral.Value = orderGrave.burial_date;
                 }
-                btnClient.Text = "Обновить запись";
+                btnAddParts.Text = "Обновить запись";
                 btnDeleteClient.Enabled = true;
             }
         }
@@ -354,7 +372,6 @@ namespace ARU
                     numberOrder = order.order_num;
                 }
                 btnAddOrder.Enabled = false;
-                btnCancelSelection.Enabled = true;
                 btnDeceased.Text = "Обновить запись";
             }
         }
@@ -370,6 +387,7 @@ namespace ARU
 
         private void UpdateForm()
         {
+            this.dataTable1TableAdapter4.Fill(this.partsOrderData1.DataTable1);
             this.orderTableAdapter2.Fill(this.orderData1.Order);
             this.dataTable1TableAdapter5.Fill(this.graveData1.DataTable1);
             this.positionTableAdapter1.Fill(this.positionsData1.Position);
@@ -382,10 +400,7 @@ namespace ARU
             this.clientTableAdapter1.Fill(this.clientsData1.Client);
         }
 
-        private void СloseApp(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
+
 
         private void DeleteClient(object sender, EventArgs e)
         {
@@ -450,6 +465,11 @@ namespace ARU
             ClearDeceased();
         }
 
+        private void ClearPartsOrderClick(object sender, EventArgs e)
+        {
+            ClearPartsOrder();
+        }
+
         private void ClearClient()
         {
             this.clientTableAdapter1.Fill(this.clientsData1.Client);
@@ -476,6 +496,64 @@ namespace ARU
             btnClearClient.Enabled = false;
             btnDeleteDeceased.Enabled = false;
             deceased.id = 0;
+        }
+        private void ClearPartsOrder()
+        {
+            this.dataTable1TableAdapter4.Fill(this.partsOrderData1.DataTable1);
+            txtIdDeceased.Text = txtNumGrave.Text = cbStatusOrder.Text = dtimeBirth.Text = dtimeFuneral.Text = "";
+            btnAddParts.Text = "Добавить запись";
+            btnDeleteDeceased.Enabled = false;
+            btnClearPartOrder.Enabled = false;
+            txtNumberOrder.Enabled = true;
+            txtIdDeceased.Enabled = true;
+            txtNumGrave.Enabled = true;
+            dtimeFuneral.Enabled = true;
+            cbStatusOrder.Enabled = true;
+        }
+
+        private bool VerificationForm(int numberGrave)
+        {
+            using (ARUDBEntities db = new ARUDBEntities())
+            {
+                Grave model = (from u in db.Grave
+                               where u.grave_number == numberGrave
+                               select u).FirstOrDefault();
+                orderGrave.grave_id = model.id;
+                if (model.gravestatus_id == 2)
+                {
+                    MessageBox.Show("Данное место захоронения уже занято"); return false;
+                }
+            }
+
+            DateTime dateBurial = new DateTime(dtimeFuneral.Value.Year, dtimeFuneral.Value.Month, dtimeFuneral.Value.Day);
+            using (ARUDBEntities db = new ARUDBEntities())
+            {
+                Order model = (from u in db.Order
+                               where u.id == orderGrave.order_id
+                               select u).FirstOrDefault();
+                DateTime dateOrder = new DateTime(model.order_date.Year, model.order_date.Month, model.order_date.Day);
+                if (dateBurial <= dateOrder)
+                {
+                    MessageBox.Show("Дата захоронения должна быть больше, чем дата заказа"); return false;
+                }
+            }
+
+            using (ARUDBEntities db = new ARUDBEntities())
+            {
+                Deceased model = (from u in db.Deceased
+                                  where u.id == orderGrave.deceased_id
+                                  select u).FirstOrDefault();
+
+                if (model.deceased_status_id == 2)
+                {
+                    MessageBox.Show("Выбранный покойник уже похоронен"); return false;
+                }
+            }
+            return true;
+        }
+        private void СloseApp(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

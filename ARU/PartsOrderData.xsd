@@ -12,7 +12,7 @@
               <DbSource ConnectionRef="ARUDBConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        [Order].order_num, Deceased.name + ' ' + Deceased.surname + ' ' + Deceased.patronymic AS fio, Order_Grave.burial_date, Grave.grave_number, Status.status_name
+                    <CommandText>SELECT        [Order].order_num, Deceased.name + ' ' + Deceased.surname + ' ' + Deceased.patronymic AS fio, Order_Grave.burial_date, Grave.grave_number, Status.status_name, Order_Grave.id
 FROM            Deceased INNER JOIN
                          Order_Grave ON Deceased.id = Order_Grave.deceased_id INNER JOIN
                          [Order] ON Order_Grave.order_id = [Order].id INNER JOIN
@@ -30,6 +30,7 @@ ORDER BY [Order].order_num</CommandText>
               <Mapping SourceColumn="burial_date" DataSetColumn="burial_date" />
               <Mapping SourceColumn="grave_number" DataSetColumn="grave_number" />
               <Mapping SourceColumn="status_name" DataSetColumn="status_name" />
+              <Mapping SourceColumn="id" DataSetColumn="id" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -41,7 +42,7 @@ ORDER BY [Order].order_num</CommandText>
   <xs:element name="PartsOrderData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="PartsOrderData" msprop:Generator_UserDSName="PartsOrderData">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="order_num" msprop:Generator_ColumnVarNameInTable="columnorder_num" msprop:Generator_ColumnPropNameInRow="order_num" msprop:Generator_ColumnPropNameInTable="order_numColumn" msprop:Generator_UserColumnName="order_num" type="xs:int" />
@@ -61,10 +62,15 @@ ORDER BY [Order].order_num</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable1" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
   </xs:element>
 </xs:schema>

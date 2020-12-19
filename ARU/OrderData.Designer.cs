@@ -289,6 +289,8 @@ namespace ARU {
             
             private global::System.Data.DataColumn columnparts_order;
             
+            private global::System.Data.DataColumn columnadded_parts;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public OrderDataTable() {
@@ -364,6 +366,14 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn added_partsColumn {
+                get {
+                    return this.columnadded_parts;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +409,15 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public OrderRow AddOrderRow(int order_num, int order_sum, System.DateTime order_date, int parts_order) {
+            public OrderRow AddOrderRow(int order_num, int order_sum, System.DateTime order_date, int parts_order, int added_parts) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         order_num,
                         order_sum,
                         order_date,
                         null,
-                        parts_order};
+                        parts_order,
+                        added_parts};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -441,6 +452,7 @@ namespace ARU {
                 this.columnorder_date = base.Columns["order_date"];
                 this.columnid = base.Columns["id"];
                 this.columnparts_order = base.Columns["parts_order"];
+                this.columnadded_parts = base.Columns["added_parts"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -456,6 +468,8 @@ namespace ARU {
                 base.Columns.Add(this.columnid);
                 this.columnparts_order = new global::System.Data.DataColumn("parts_order", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnparts_order);
+                this.columnadded_parts = new global::System.Data.DataColumn("added_parts", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadded_parts);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnorder_num.AllowDBNull = false;
@@ -467,6 +481,8 @@ namespace ARU {
                 this.columnid.AllowDBNull = false;
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
+                this.columnparts_order.AllowDBNull = false;
+                this.columnadded_parts.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -655,12 +671,7 @@ namespace ARU {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int parts_order {
                 get {
-                    try {
-                        return ((int)(this[this.tableOrder.parts_orderColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'parts_order\' в таблице \'Order\' равно DBNull.", e);
-                    }
+                    return ((int)(this[this.tableOrder.parts_orderColumn]));
                 }
                 set {
                     this[this.tableOrder.parts_orderColumn] = value;
@@ -669,14 +680,13 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isparts_orderNull() {
-                return this.IsNull(this.tableOrder.parts_orderColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setparts_orderNull() {
-                this[this.tableOrder.parts_orderColumn] = global::System.Convert.DBNull;
+            public int added_parts {
+                get {
+                    return ((int)(this[this.tableOrder.added_partsColumn]));
+                }
+                set {
+                    this[this.tableOrder.added_partsColumn] = value;
+                }
             }
         }
         
@@ -844,32 +854,34 @@ namespace ARU.OrderDataTableAdapters {
             tableMapping.ColumnMappings.Add("order_date", "order_date");
             tableMapping.ColumnMappings.Add("id", "id");
             tableMapping.ColumnMappings.Add("parts_order", "parts_order");
+            tableMapping.ColumnMappings.Add("added_parts", "added_parts");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Order] WHERE (([order_num] = @Original_order_num) AND ([order_sum] = @Original_order_sum) AND ([order_date] = @Original_order_date) AND ([id] = @Original_id) AND ((@IsNull_parts_order = 1 AND [parts_order] IS NULL) OR ([parts_order] = @Original_parts_order)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Order] WHERE (([order_num] = @Original_order_num) AND ([order_sum] = @Original_order_sum) AND ([order_date] = @Original_order_date) AND ([id] = @Original_id) AND ([parts_order] = @Original_parts_order) AND ([added_parts] = @Original_added_parts))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_num", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_sum", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_sum", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_added_parts", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "added_parts", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Order] SET [order_num] = @order_num, [order_sum] = @order_sum, [order_date] = @order_date, [parts_order] = @parts_order WHERE (([order_num] = @Original_order_num) AND ([order_sum] = @Original_order_sum) AND ([order_date] = @Original_order_date) AND ([id] = @Original_id) AND ((@IsNull_parts_order = 1 AND [parts_order] IS NULL) OR ([parts_order] = @Original_parts_order)));
-SELECT order_num, order_sum, order_date, id, parts_order FROM [Order] WHERE (id = @id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Order] SET [order_num] = @order_num, [order_sum] = @order_sum, [order_date] = @order_date, [parts_order] = @parts_order, [added_parts] = @added_parts WHERE (([order_num] = @Original_order_num) AND ([order_sum] = @Original_order_sum) AND ([order_date] = @Original_order_date) AND ([id] = @Original_id) AND ([parts_order] = @Original_parts_order) AND ([added_parts] = @Original_added_parts));
+SELECT order_num, order_sum, order_date, id, parts_order, added_parts FROM [Order] WHERE (id = @id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@order_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@order_sum", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_sum", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@order_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@added_parts", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "added_parts", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_num", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_sum", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_sum", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_order_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "order_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_parts_order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "parts_order", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_added_parts", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "added_parts", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -886,8 +898,8 @@ SELECT order_num, order_sum, order_date, id, parts_order FROM [Order] WHERE (id 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        order_num, order_sum, order_date, id, parts_order\r\nFROM            " +
-                "[Order]";
+            this._commandCollection[0].CommandText = "SELECT        order_num, order_sum, order_date, id, parts_order, added_parts\r\nFRO" +
+                "M            [Order]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

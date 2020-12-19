@@ -289,6 +289,8 @@ namespace ARU {
             
             private global::System.Data.DataColumn columnstatus_name;
             
+            private global::System.Data.DataColumn columnid;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DataTable1DataTable() {
@@ -364,6 +366,14 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn idColumn {
+                get {
+                    return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -406,10 +416,18 @@ namespace ARU {
                         fio,
                         burial_date,
                         grave_number,
-                        status_name};
+                        status_name,
+                        null};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DataTable1Row FindByid(int id) {
+                return ((DataTable1Row)(this.Rows.Find(new object[] {
+                            id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -434,6 +452,7 @@ namespace ARU {
                 this.columnburial_date = base.Columns["burial_date"];
                 this.columngrave_number = base.Columns["grave_number"];
                 this.columnstatus_name = base.Columns["status_name"];
+                this.columnid = base.Columns["id"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -449,6 +468,10 @@ namespace ARU {
                 base.Columns.Add(this.columngrave_number);
                 this.columnstatus_name = new global::System.Data.DataColumn("status_name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnstatus_name);
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnid}, true));
                 this.columnorder_num.AllowDBNull = false;
                 this.columnfio.ReadOnly = true;
                 this.columnfio.MaxLength = 152;
@@ -456,6 +479,12 @@ namespace ARU {
                 this.columngrave_number.AllowDBNull = false;
                 this.columnstatus_name.AllowDBNull = false;
                 this.columnstatus_name.MaxLength = 50;
+                this.columnid.AutoIncrement = true;
+                this.columnid.AutoIncrementSeed = -1;
+                this.columnid.AutoIncrementStep = -1;
+                this.columnid.AllowDBNull = false;
+                this.columnid.ReadOnly = true;
+                this.columnid.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -658,6 +687,17 @@ namespace ARU {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int id {
+                get {
+                    return ((int)(this[this.tableDataTable1.idColumn]));
+                }
+                set {
+                    this[this.tableDataTable1.idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsfioNull() {
                 return this.IsNull(this.tableDataTable1.fioColumn);
             }
@@ -833,6 +873,7 @@ namespace ARU.PartsOrderDataTableAdapters {
             tableMapping.ColumnMappings.Add("burial_date", "burial_date");
             tableMapping.ColumnMappings.Add("grave_number", "grave_number");
             tableMapping.ColumnMappings.Add("status_name", "status_name");
+            tableMapping.ColumnMappings.Add("id", "id");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -849,7 +890,7 @@ namespace ARU.PartsOrderDataTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT        [Order].order_num, Deceased.name + ' ' + Deceased.surname + ' ' + Deceased.patronymic AS fio, Order_Grave.burial_date, Grave.grave_number, Status.status_name
+            this._commandCollection[0].CommandText = @"SELECT        [Order].order_num, Deceased.name + ' ' + Deceased.surname + ' ' + Deceased.patronymic AS fio, Order_Grave.burial_date, Grave.grave_number, Status.status_name, Order_Grave.id
 FROM            Deceased INNER JOIN
                          Order_Grave ON Deceased.id = Order_Grave.deceased_id INNER JOIN
                          [Order] ON Order_Grave.order_id = [Order].id INNER JOIN
